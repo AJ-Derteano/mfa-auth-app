@@ -1,0 +1,22 @@
+services:
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    restart: always
+    ports:
+      - 27017:27017
+    volumes:
+      - ./nest-auth-db/data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+    networks:
+      - nest-auth-network
+
+volumes:
+  nest-auth-db:
+    driver: local
+
+networks:
+  nest-auth-network:
+    driver: bridge
