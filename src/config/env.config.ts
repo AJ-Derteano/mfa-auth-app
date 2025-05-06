@@ -15,6 +15,8 @@ export default registerAs('config', () => {
     MONGO_DB: process.env.MONGO_DB,
     MONGO_USER: process.env.MONGO_USER,
     MONGO_PASS: process.env.MONGO_PASS,
+    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+    GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
   };
 });
 
@@ -31,4 +33,6 @@ export const configJoiSchema: Joi.ObjectSchema = Joi.object({
   MONGO_DB: Joi.string().required(),
   MONGO_USER: Joi.string(),
   MONGO_PASS: Joi.string(),
+  GOOGLE_CLIENT_ID: Joi.string().required(),
+  GOOGLE_CLIENT_SECRET: Joi.string().required(),
 });

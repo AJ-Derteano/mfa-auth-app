@@ -32,4 +32,29 @@ export class UsersService {
       })
       .exec();
   }
+
+  async findOrCreateGoogle(profile: {
+    email: string;
+    firstName: string;
+    lastName: string;
+    picture: string;
+  }): Promise<User> {
+    const { email, firstName, lastName, picture } = profile;
+
+    let user = await this.userModel.findOne({ email });
+
+    if (!user) {
+      user = new this.userModel({
+        email,
+        firstName,
+        lastName,
+        picture,
+        provider: 'google',
+      });
+
+      await user.save();
+    }
+
+    return user;
+  }
 }

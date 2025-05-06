@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthService } from '../services/auth.service';
 import { AuthGuard } from '@nestjs/passport';
 import { RequestExpress } from '../interfaces/requesExpress';
@@ -26,5 +26,19 @@ export class AuthController {
   @Post('mfa/verify')
   async verifyMfa(@Body() body: { username: string; token: string }) {
     return this.authServices.verifyTotpCode(body.username, body.token);
+  }
+
+  @Get('google')
+  @UseGuards(AuthGuard('google'))
+  async googleAuth() {
+    // Este endpoint redirige a Google automáticamente
+  }
+
+  @Get('google/redirect')
+  @UseGuards(AuthGuard('google'))
+  async googleAuthRedirect(@Req() req) {
+    const { access_token } = req.user as any;
+
+    return { access_token };
   }
 }
